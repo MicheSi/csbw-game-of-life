@@ -2,3 +2,7 @@
   text-align: center;
 }
 
+/* .gameGrid {
+  display: grid;
+  grid-template-columns: repeat(50, 20px);
+} */
