@@ -15,13 +15,17 @@ const operations = [
     [-1, 0]
 ]
 
-const GameGrid = props => {
-    const [grid, setGrid] = useState(() => {
-        const rows = [];
+const resetGrid = () => {
+    const rows = [];
         for (let i = 0; i < numRows; i++) {
           rows.push(Array.from(Array(numColumns), () => 0))
         }
         return rows;
+}
+
+const GameGrid = props => {
+    const [grid, setGrid] = useState(() => {
+        return resetGrid();
       })
 
     const [running, setRunning] = useState(false);
@@ -54,8 +58,16 @@ const GameGrid = props => {
                 }
             })
         })
-        setTimeout(runApp, 1000);
+        setTimeout(runApp, 500);
     }, [])
+
+    const randomGrid = () => {
+        const rows = [];
+        for (let i = 0; i < numRows; i++) {
+          rows.push(Array.from(Array(numColumns), () => Math.random() > 0.8 ? 1 : 0))
+        }
+        return rows;
+    }
 
     return (
         <div className='gameDiv'>
@@ -69,6 +81,18 @@ const GameGrid = props => {
                         }
                     }}>
                     {running ? 'Stop' : 'Start'}
+                </button>
+                <button
+                    onClick={() => {
+                        setGrid(resetGrid());
+                    }}>
+                    Clear
+                </button>
+                <button
+                    onClick={() => {
+                        setGrid(randomGrid)
+                }}>
+                    Random
                 </button>
             </div>
             <div className='gameGrid'>
