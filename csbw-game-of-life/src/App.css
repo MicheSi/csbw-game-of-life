@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .App {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,17 @@
 
 .gameGrid {
   display: grid;
-  grid-template-columns: repeat(40, 20px);
+  grid-template-columns: repeat(25, 20px);
   margin-top: 2%;
+  background-color: white;
+}
+
+.buttonsDiv {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
+  font-family: 'Press Start 2P', cursive;
+  height: 30px;
 }

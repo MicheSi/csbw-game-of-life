@@ -1,8 +1,8 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
 
-const numColumns = 40;
-const numRows = 40;
+const numColumns = 25;
+const numRows = 25;
 
 const operations = [
     [0, 1],
@@ -26,7 +26,7 @@ const resetGrid = () => {
 const GameGrid = props => {
     const [grid, setGrid] = useState(() => {
         return resetGrid();
-      })
+    })
 
     const [running, setRunning] = useState(false);
 
@@ -100,10 +100,12 @@ const GameGrid = props => {
                     <div className='gridSquares'
                         key={`${rowI}=${colI}`}
                         onClick={()=> {
-                            const newGrid = produce(grid, gCopy => {
-                                gCopy[rowI][colI] = grid[rowI][colI] ? 0: 1;
-                            })
-                            setGrid(newGrid)
+                            if (!running) {
+                                const newGrid = produce(grid, gCopy => {
+                                    gCopy[rowI][colI] = grid[rowI][colI] ? 0: 1;
+                                })
+                                setGrid(newGrid)
+                            }
                         }}
                         style={{
                             width: 20,
