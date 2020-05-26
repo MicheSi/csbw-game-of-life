@@ -1,6 +1,9 @@
 import React from 'react';
-import './App.css';
+
 import GameGrid from './components/game';
+import Rules from './components/rules';
+
+import './App.css';
 
 
 function App() {
@@ -9,6 +12,7 @@ function App() {
     <div className="App">
       <h1>Conway's Game of Life</h1>
       <GameGrid />
+      <Rules />
     </div>
   );
 }

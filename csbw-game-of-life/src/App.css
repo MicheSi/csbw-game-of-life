@@ -27,3 +27,8 @@ button {
   font-family: 'Press Start 2P', cursive;
   height: 30px;
 }
+
+.rules {
+  text-align: left;
+  line-height: 2;
+}
