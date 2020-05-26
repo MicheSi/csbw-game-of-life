@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
-import { set } from 'immer/dist/internal';
 
 const numColumns = 25;
 const numRows = 25;
@@ -36,6 +35,9 @@ const GameGrid = props => {
     const runningRef = useRef(running);
     runningRef.current = running;
 
+    const generationRef = useRef(generation);
+    generationRef.current = generation;
+
     const runApp = useCallback(() => {
         if (!runningRef.current) {
             return;
@@ -61,8 +63,10 @@ const GameGrid = props => {
                 }
             })
         })
-        setTimeout(runApp, 500);
-        setGeneration(generation + 1);
+        setTimeout(() => {
+            setGeneration(generationRef.current + 1)
+            runApp()
+        }, 500)
     }, [])
 
     const randomGrid = () => {
