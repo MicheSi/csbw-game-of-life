@@ -30,7 +30,7 @@ const GameGrid = props => {
 
     const [running, setRunning] = useState(false);
 
-    const [generation, setGeneration] = useState(0)
+    const [generation, setGeneration] = useState(0);
 
     const runningRef = useRef(running);
     runningRef.current = running;

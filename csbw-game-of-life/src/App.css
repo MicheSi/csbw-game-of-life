@@ -1,13 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Questrial&display=swap');
+
+/* General styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive;
+}
+
 /* App styles */
 .App {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  line-height: 2;
 }
 
-h1 {
+.App h1 {
   margin: 4%;
 }
 
@@ -26,16 +34,30 @@ h1 {
 
 button {
   font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
   height: 30px;
+  border: solid 1px black;
+}
+
+button:hover {
+  background-color: steelblue;
+  cursor: pointer;
 }
 
 /* Rules styles */
 .rules {
   text-align: left;
-  line-height: 2;
+}
+
+.rules li {
+  font-size: 18px;
 }
 
 /* About styles */
 .about {
-  width: 65%;
+  width: 55%;
+}
+
+.about p {
+  font-size: 20px;
 }
