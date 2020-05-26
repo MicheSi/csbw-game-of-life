@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
+/* App styles */
 .App {
   display: flex;
   flex-direction: column;
@@ -11,6 +11,7 @@ h1 {
   margin: 4%;
 }
 
+/* Game Grid styles */
 .gameGrid {
   display: grid;
   grid-template-columns: repeat(25, 20px);
@@ -28,7 +29,13 @@ button {
   height: 30px;
 }
 
+/* Rules styles */
 .rules {
   text-align: left;
   line-height: 2;
+}
+
+/* About styles */
+.about {
+  width: 65%;
 }
