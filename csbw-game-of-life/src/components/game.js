@@ -97,7 +97,7 @@ const GameGrid = props => {
             </div>
             <div className='gameGrid'>
                 {grid.map((rows, rowI) => rows.map((columns, colI) => (
-                    <div
+                    <div className='gridSquares'
                         key={`${rowI}=${colI}`}
                         onClick={()=> {
                             const newGrid = produce(grid, gCopy => {
@@ -108,7 +108,7 @@ const GameGrid = props => {
                         style={{
                             width: 20,
                             height: 20,
-                            backgroundColor: grid[rowI][colI] ? 'blue' : undefined,
+                            backgroundColor: grid[rowI][colI] ? 'steelblue' : undefined,
                             border: 'solid 1px black'
                         }}
                     />
