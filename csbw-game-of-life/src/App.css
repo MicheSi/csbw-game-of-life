@@ -29,11 +29,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Game Grid styles */
 .gameGrid {
-  display: grid;
-  grid-template-columns: repeat(25, 20px);
   margin-top: 2%;
   background-color: white;
 }
+
+select {
+  height: 30px;
+  width: 200px;
+  font-family: 'Questrial', sans-serif;
+  font-size: 16px;
+  display: flex;
+  border: solid 1px black;
+}
+
 
 /* Main Right Styles */
 .mainRight h3 {
@@ -64,13 +72,12 @@ button:hover {
 /* Rules styles */
 .rules {
   text-align: left;
-  width: 50%;
   margin-left: 4%;
 }
 
 .rules li {
   font-size: 18px;
-  margin-left: -8%;
+  margin-left: -5%;
 }
 
 /* About styles */

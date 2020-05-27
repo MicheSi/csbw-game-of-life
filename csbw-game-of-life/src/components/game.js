@@ -2,8 +2,8 @@ import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
 import Rules from './rules';
 
-const numRows = 25;
-const numColumns = 25;
+let numRows = 25;
+let numColumns = 35;
 
 const operations = [
     [0, 1],
@@ -42,6 +42,9 @@ const GameGrid = props => {
 
     const speedRef = useRef(speed);
     speedRef.current = speed;
+
+    const sizeRef = useRef(size);
+    sizeRef.current = size;
 
     const runApp = useCallback(() => {
         if (!runningRef.current) {
@@ -82,10 +85,36 @@ const GameGrid = props => {
         setGrid(rows);
     }
 
+    const changeSize = e => {
+        setSize({[e.target.name]: e.target.value})
+        console.log(size, e.target.value)
+        if (e.target.value === '25x25') {
+            numRows = 25;
+            numColumns = 25;
+        } if (e.target.value === '25x35') {
+            numRows = 25;
+            numColumns= 35;
+        } if (e.target.value === '40x40') {
+            numRows = 40;
+            numColumns = 40;
+        }
+    }
+
     return (
         <div className='mainDiv'>
             <div className='gameDiv'>
-                <div className='gameGrid'>
+                <select id='size' onChange={changeSize} value={size}>
+                    <option>Select a grid size</option>
+                    <option value='25x25' name='25x25'>25 x 25</option>
+                    <option value='25x35' name='25x35'>25 X 35</option>
+                    <option value='40x40' name='40x55'>40 X 40</option>
+                </select>
+                <div
+                    className='gameGrid'
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${numColumns}, 20px)`
+                    }}>
                     {grid.map((rows, rowI) => rows.map((columns, colI) => (
                         <div className='gridSquares'
                             key={`${rowI}=${colI}`}
