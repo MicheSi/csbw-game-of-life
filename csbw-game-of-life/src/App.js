@@ -1,10 +1,10 @@
 import React from 'react';
 
 import GameGrid from './components/game';
-import Rules from './components/rules';
+import About from './components/about';
+import Footer from './components/footer';
 
 import './App.css';
-import About from './components/about';
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <h1>Conway's Game of Life</h1>
       <About />
       <GameGrid />
-      <Rules />
+      <Footer />
     </div>
   );
 }

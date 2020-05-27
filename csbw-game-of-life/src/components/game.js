@@ -1,8 +1,9 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
+import Rules from './rules';
 
-const numColumns = 25;
 const numRows = 25;
+const numColumns = 25;
 
 const operations = [
     [0, 1],
@@ -31,6 +32,7 @@ const GameGrid = props => {
     const [running, setRunning] = useState(false);
     const [generation, setGeneration] = useState(0);
     const [speed, setSpeed] = useState(500);
+    const [size, setSize] = useState()
 
     const runningRef = useRef(running);
     runningRef.current = running;
@@ -77,80 +79,94 @@ const GameGrid = props => {
         for (let i = 0; i < numRows; i++) {
           rows.push(Array.from(Array(numColumns), () => Math.random() > 0.8 ? 1 : 0))
         }
-        return rows;
+        setGrid(rows);
     }
 
     return (
-        <div className='gameDiv'>
-            <div className='buttonsDiv'>
-                <button
-                    onClick={()=> {
-                        setRunning(!running);
-                        if (!running) {
-                            runningRef.current = true;
-                            runApp();
-                        }
-                    }}>
-                    {running ? 'Stop' : 'Start'}
-                </button>
-                <button
-                    onClick={() => {
-                        setGrid(resetGrid());
-                        setGeneration(0);
-                    }}>
-                    Clear
-                </button>
-                <button
-                    onClick={() => {
-                        setGrid(randomGrid)
-                }}>
-                    Random
-                </button>
-                {running ? (
+        <div className='mainDiv'>
+            <div className='gameDiv'>
+                <div className='gameGrid'>
+                    {grid.map((rows, rowI) => rows.map((columns, colI) => (
+                        <div className='gridSquares'
+                            key={`${rowI}=${colI}`}
+                            onClick={()=> {
+                                if (!running) {
+                                    const newGrid = produce(grid, gCopy => {
+                                        gCopy[rowI][colI] = grid[rowI][colI] ? 0: 1;
+                                    })
+                                    setGrid(newGrid)
+                                }
+                            }}
+                            style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: grid[rowI][colI] ? 'steelblue' : undefined,
+                                border: 'solid 1px black'
+                            }}
+                        />
+                    )))}
+                </div>
+            </div>
+            <div className='mainRight'>
+                <Rules/>
+                <div className='buttonsDiv'>
+                    <button
+                        onClick={()=> {
+                            setRunning(!running);
+                            if (!running) {
+                                runningRef.current = true;
+                                runApp();
+                            }
+                        }}>
+                        {running ? 'Stop' : 'Start'}
+                    </button>
                     <button
                         onClick={() => {
-                            setSpeed(1000)
-                    }}>
-                    Slow
+                            setGrid(resetGrid());
+                            setGeneration(0);
+                        }}>
+                        Clear
                     </button>
-                ) : (
-                    <button>Slow</button>
-                )}
-                {running ? (
                     <button
-                    onClick={() => {
-                        setSpeed(100)
-                        runApp()
-                }}>
-                    Fast
-                </button>
-                ) : (
-                    <button>Fast</button>
-                )}
-                
+                        onClick={() => {
+                            setGrid(randomGrid)
+                    }}>
+                        Random
+                    </button>
+                    {running ? (
+                        <button
+                            onClick={() => {
+                                setSpeed(1000)
+                        }}>
+                        Slow
+                        </button>
+                    ) : (
+                        <button>Slow</button>
+                    )}
+                    {running ? (
+                        <button
+                            onClick={() => {
+                                setSpeed(500)
+                        }}>
+                        Normal
+                        </button>
+                    ) : (
+                        <button>Normal</button>
+                    )}
+                    {running ? (
+                        <button
+                        onClick={() => {
+                            setSpeed(100)
+                            runApp()
+                    }}>
+                        Fast
+                    </button>
+                    ) : (
+                        <button>Fast</button>
+                    )}
+                </div>
+                <h3># of Generations: {generation}</h3>
             </div>
-            <div className='gameGrid'>
-                {grid.map((rows, rowI) => rows.map((columns, colI) => (
-                    <div className='gridSquares'
-                        key={`${rowI}=${colI}`}
-                        onClick={()=> {
-                            if (!running) {
-                                const newGrid = produce(grid, gCopy => {
-                                    gCopy[rowI][colI] = grid[rowI][colI] ? 0: 1;
-                                })
-                                setGrid(newGrid)
-                            }
-                        }}
-                        style={{
-                            width: 20,
-                            height: 20,
-                            backgroundColor: grid[rowI][colI] ? 'steelblue' : undefined,
-                            border: 'solid 1px black'
-                        }}
-                    />
-                )))}
-            </div>
-            <h3># of Generations: {generation}</h3>
         </div>
     )
 }
