@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
-import './App.css';
+import React from 'react';
+
 import GameGrid from './components/game';
-import Buttons from './components/buttons';
+import Rules from './components/rules';
+
+import './App.css';
+import About from './components/about';
+
 
 function App() {
 
   return (
     <div className="App">
       <h1>Conway's Game of Life</h1>
-      <Buttons />
+      <About />
       <GameGrid />
+      <Rules />
     </div>
   );
 }

@@ -1,8 +1,63 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Questrial&display=swap');
+
+/* General styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive;
 }
 
-/* .gameGrid {
+/* App styles */
+.App {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 2;
+}
+
+.App h1 {
+  margin: 4%;
+}
+
+/* Game Grid styles */
+.gameGrid {
   display: grid;
-  grid-template-columns: repeat(50, 20px);
-} */
+  grid-template-columns: repeat(25, 20px);
+  margin-top: 2%;
+  background-color: white;
+}
+
+.buttonsDiv {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  height: 30px;
+  border: solid 1px black;
+}
+
+button:hover {
+  background-color: steelblue;
+  cursor: pointer;
+}
+
+/* Rules styles */
+.rules {
+  text-align: left;
+}
+
+.rules li {
+  font-size: 18px;
+}
+
+/* About styles */
+.about {
+  width: 55%;
+}
+
+.about p {
+  font-size: 20px;
+}
