@@ -29,14 +29,17 @@ const GameGrid = props => {
     })
 
     const [running, setRunning] = useState(false);
-
     const [generation, setGeneration] = useState(0);
+    const [speed, setSpeed] = useState(500);
 
     const runningRef = useRef(running);
     runningRef.current = running;
 
     const generationRef = useRef(generation);
     generationRef.current = generation;
+
+    const speedRef = useRef(speed);
+    speedRef.current = speed;
 
     const runApp = useCallback(() => {
         if (!runningRef.current) {
@@ -66,7 +69,7 @@ const GameGrid = props => {
         setTimeout(() => {
             setGeneration(generationRef.current + 1)
             runApp()
-        }, 500)
+        }, speedRef.current)
     }, [])
 
     const randomGrid = () => {
@@ -103,6 +106,28 @@ const GameGrid = props => {
                 }}>
                     Random
                 </button>
+                {running ? (
+                    <button
+                        onClick={() => {
+                            setSpeed(1000)
+                    }}>
+                    Slow
+                    </button>
+                ) : (
+                    <button>Slow</button>
+                )}
+                {running ? (
+                    <button
+                    onClick={() => {
+                        setSpeed(100)
+                        runApp()
+                }}>
+                    Fast
+                </button>
+                ) : (
+                    <button>Fast</button>
+                )}
+                
             </div>
             <div className='gameGrid'>
                 {grid.map((rows, rowI) => rows.map((columns, colI) => (
