@@ -32,7 +32,7 @@ const GameGrid = props => {
     const [running, setRunning] = useState(false);
     const [generation, setGeneration] = useState(0);
     const [speed, setSpeed] = useState(500);
-    const [size, setSize] = useState()
+    const [size, setSize] = useState([])
 
     const runningRef = useRef(running);
     runningRef.current = running;
@@ -94,9 +94,9 @@ const GameGrid = props => {
         } if (e.target.value === '25x35') {
             numRows = 25;
             numColumns= 35;
-        } if (e.target.value === '40x40') {
-            numRows = 40;
-            numColumns = 40;
+        } if (e.target.value === '35x45') {
+            numRows = 35;
+            numColumns = 45;
         }
     }
 
@@ -107,7 +107,7 @@ const GameGrid = props => {
                     <option>Select a grid size</option>
                     <option value='25x25' name='25x25'>25 x 25</option>
                     <option value='25x35' name='25x35'>25 X 35</option>
-                    <option value='40x40' name='40x55'>40 X 40</option>
+                    <option value='35x45' name='35x45'>35 X 45</option>
                 </select>
                 <div
                     className='gameGrid'
@@ -117,7 +117,7 @@ const GameGrid = props => {
                     }}>
                     {grid.map((rows, rowI) => rows.map((columns, colI) => (
                         <div className='gridSquares'
-                            key={`${rowI}=${colI}`}
+                            key={`${rowI}-${colI}`}
                             onClick={()=> {
                                 if (!running) {
                                     const newGrid = produce(grid, gCopy => {
