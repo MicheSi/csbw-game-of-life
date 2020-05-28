@@ -1,10 +1,12 @@
-import React, {useState, useCallback, useRef, useEffect} from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
 import Rules from './rules';
 
+// Default # of rows and columns for grid
 let numRows = 25;
 let numColumns = 35;
 
+// Operations for possible cell moves
 const operations = [
     [0, 1],
     [0, -1],
@@ -16,16 +18,16 @@ const operations = [
     [-1, 0]
 ]
 
+// Create a blank grid
 const resetGrid = () => {
     const rows = [];
     for (let i = 0; i < numRows; i++) {
         rows.push(Array.from(Array(numColumns), () => 0))
     }
-    console.log(resetGrid)
-    console.log(numRows, numColumns)
     return rows;
 }
 
+// Game Grid function
 const GameGrid = props => {
     // State Variables
     const [grid, setGrid] = useState(() => {
@@ -50,15 +52,8 @@ const GameGrid = props => {
     const sizeRef = useRef(size);
     sizeRef.current = size;
 
-    // Use effect to change grid size
-    // useEffect(() => {
-    //     setGrid(resetGrid(numRows, numColumns));
-    // }, [])
-
     // Function to start app
     const runApp = useCallback(() => {
-        console.log(resetGrid)
-        console.log(numRows, numColumns)
         if (!runningRef.current) {
             return;
         }
@@ -115,6 +110,33 @@ const GameGrid = props => {
         setGrid(resetGrid)
     }
 
+    // Function to move one generation at a time
+    const nextMove = useCallback(() => {
+        setGrid(g => {
+            return produce(g, gridCopy => {
+                for (let i = 0; i < numRows; i++){
+                    for (let j = 0; j < numColumns; j++) {
+                        let neighbors = 0;
+                        operations.forEach(([x, y]) => {
+                            const newI = i + x;
+                            const newJ = j + y;
+                            if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numColumns) {
+                                neighbors += g[newI][newJ];
+                            }
+                        })
+                        if (neighbors < 2 || neighbors > 3) {
+                            gridCopy[i][j] = 0;
+                        } else if (g[i][j] === 0 && neighbors === 3) {
+                            gridCopy[i][j] = 1;
+                        }
+                    }
+                }
+            })
+        })
+        setGeneration(generationRef.current + 1);
+        return nextMove
+    }, [])
+
     return (
         <div className='mainDiv'>
             <div className='gameDiv'>
@@ -163,6 +185,12 @@ const GameGrid = props => {
                             }
                         }}>
                         {running ? 'Stop' : 'Start'}
+                    </button>
+                    <button
+                        onClick={() => {
+                            nextMove()
+                    }}>
+                        Next
                     </button>
                     <button
                         onClick={() => {
