@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
 import Rules from './rules';
+import Music from './music';
 
 // Default # of rows and columns for grid
 let numRows = 25;
@@ -137,6 +138,18 @@ const GameGrid = props => {
         return nextMove
     }, [])
 
+    // function to play music on Start button
+    const playMusic = () => {
+        let audio = document.getElementById('audio')
+        audio.play()
+    }
+
+    // function to pause music on Stop Button
+    const stopMusic = () => {
+        let audio = document.getElementById('audio')
+        audio.pause()
+    }
+
     return (
         <div className='mainDiv'>
             <div className='gameDiv'>
@@ -182,6 +195,10 @@ const GameGrid = props => {
                             if (!running) {
                                 runningRef.current = true;
                                 runApp();
+                                playMusic();
+                            }
+                            if (running) {
+                                stopMusic()
                             }
                         }}>
                         {running ? 'Stop' : 'Start'}
@@ -237,6 +254,7 @@ const GameGrid = props => {
                         <button>Fast</button>
                     )}
                 </div>
+                <Music />
                 <h3># of Generations: {generation}</h3>
             </div>
         </div>

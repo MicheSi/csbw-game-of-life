@@ -93,6 +93,9 @@ button:hover {
   font-size: 20px;
 }
 
+.musicControls {
+  margin-top: 7%;
+}
 /* Footer styles */
 footer {
   margin: 4% 0 3%;
