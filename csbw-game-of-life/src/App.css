@@ -96,6 +96,12 @@ button:hover {
 .musicControls {
   margin-top: 7%;
 }
+
+.musicControls p {
+  margin-top: -1%;
+  font-size: 14px;
+}
+
 /* Footer styles */
 footer {
   margin: 4% 0 3%;
