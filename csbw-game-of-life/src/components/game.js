@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import produce from 'immer';
 import Rules from './rules';
 
@@ -21,10 +21,13 @@ const resetGrid = () => {
     for (let i = 0; i < numRows; i++) {
         rows.push(Array.from(Array(numColumns), () => 0))
     }
+    console.log(resetGrid)
+    console.log(numRows, numColumns)
     return rows;
 }
 
 const GameGrid = props => {
+    // State Variables
     const [grid, setGrid] = useState(() => {
         return resetGrid();
     })
@@ -32,8 +35,9 @@ const GameGrid = props => {
     const [running, setRunning] = useState(false);
     const [generation, setGeneration] = useState(0);
     const [speed, setSpeed] = useState(500);
-    const [size, setSize] = useState([])
+    const [size, setSize] = useState('25x35')
 
+    // Use Ref variables
     const runningRef = useRef(running);
     runningRef.current = running;
 
@@ -46,7 +50,15 @@ const GameGrid = props => {
     const sizeRef = useRef(size);
     sizeRef.current = size;
 
+    // Use effect to change grid size
+    // useEffect(() => {
+    //     setGrid(resetGrid(numRows, numColumns));
+    // }, [])
+
+    // Function to start app
     const runApp = useCallback(() => {
+        console.log(resetGrid)
+        console.log(numRows, numColumns)
         if (!runningRef.current) {
             return;
         }
@@ -77,6 +89,7 @@ const GameGrid = props => {
         }, speedRef.current)
     }, [])
 
+    // Function to create random squares on grid
     const randomGrid = () => {
         const rows = [];
         for (let i = 0; i < numRows; i++) {
@@ -85,19 +98,21 @@ const GameGrid = props => {
         setGrid(rows);
     }
 
+    // Function to change size of grid
     const changeSize = e => {
-        setSize({[e.target.name]: e.target.value})
+        setSize(e.target.value)
         console.log(size, e.target.value)
         if (e.target.value === '25x25') {
             numRows = 25;
             numColumns = 25;
-        } if (e.target.value === '25x35') {
+        } else if (e.target.value === '25x35') {
             numRows = 25;
             numColumns= 35;
-        } if (e.target.value === '35x45') {
+        } else if (e.target.value === '35x45') {
             numRows = 35;
             numColumns = 45;
         }
+        setGrid(resetGrid)
     }
 
     return (
@@ -158,7 +173,7 @@ const GameGrid = props => {
                     </button>
                     <button
                         onClick={() => {
-                            setGrid(randomGrid)
+                            randomGrid()
                     }}>
                         Random
                     </button>
