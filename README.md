@@ -12,7 +12,7 @@ aspects of computer science and nature.
 
 ## About the Project
 
-This project was built using React, using React hooks. Using CSS Grid, I built a grid template that allows users to click on their own designs or create a random grid. Users are also able to set their gird to three different sizes and run the game at three different speeds.
+This project was built using React, using React hooks. Using CSS Grid, I built a grid template that allows users to click on their own designs or create a random grid. Users are also able to set their grid to three different sizes and run the game at three different speeds.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
